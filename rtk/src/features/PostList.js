@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { RevolvingDot } from "react-loader-spinner";
 import {
   useDeletePostMutation,
   useGetPostsQuery,
@@ -25,30 +26,27 @@ function PostList() {
   const [updatePost] = useUpdatePostsMutation();
   const [deletePost] = useDeletePostMutation();
 
-  const handleSubmitPost = (e) => {
+  const handleSubmitPost = async (e) => {
     e.preventDefault();
-    addPost(post);
-    setPost({ id: "", title: "", body:""});
+    await addPost(post);
+    setPost({ id: 0, title: "", body: "" });
+  };
+
+  const newPost = {
+    'id': '7',
+    'title': "TEST UPDATE",
+    'body': "TEST BODY UPDATE",
+  };
+  const handleUpdatePost = async (id) => {
+    await updatePost(newPost);
   };
 
   let content;
 
   if (isLoading) {
-    content = <p>Loading...</p>;
+    content = <RevolvingDot />;
   } else if (isError) {
     content = <p>{error}</p>;
-  } else if (isSuccess) {
-    content = posts.map((post) => {
-      return (
-        <div key={post.id}>
-          <p>{post.id}</p>
-          <p>{post.title}</p>
-          <p>{post.body}</p>
-          <button className="btn" onClick={() => updatePost({ id: post.id })}>Edit</button>
-          <button className="btn" onClick={() => deletePost({ id: post.id })}>Delete</button>
-        </div>
-      );
-    });
   }
 
   return (
@@ -81,10 +79,37 @@ function PostList() {
             onChange={(e) => setPost({ ...post, body: e.target.value })}
           ></textarea>
 
-          <button>Submit</button>
+          <button type="submit">Submit</button>
         </form>
         {content}
       </div>
+      {isSuccess ? (
+        posts?.length > 0 ? (
+          posts.map((post) => {
+            return (
+              <div key={post.id}>
+                <p>{post.id}</p>
+                <p>{post.title}</p>
+                <p>{post.body}</p>
+                <button
+                  className="btn"
+                  onClick={() => handleUpdatePost(post.id)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="btn"
+                  onClick={() => deletePost({ id: post.id })}
+                >
+                  Delete
+                </button>
+              </div>
+            );
+          })
+        ) : (
+          <p>No posts available</p>
+        )
+      ) : null}
     </div>
   );
 }
