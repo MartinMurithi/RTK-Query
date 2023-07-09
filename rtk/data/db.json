@@ -1,0 +1,24 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "RTK Query is simple ",
+      "body": "RTK Query is simple, it can be used by any front-end framework but its mostly used with react\n\n"
+    },
+    {
+      "id": "2",
+      "title": "Configure the Store",
+      "body": "The \"API slice\" also contains an auto-generated Redux slice reducer and a custom middleware that manages subscription lifetimes. Both of those need to be added to the Redux store:"
+    },
+    {
+      "id": "3",
+      "title": "Use Hooks in Components",
+      "body": "Finally, import the auto-generated React hooks from the API slice into your component file, and call the hooks in your component with any needed parameters. RTK Query will automatically fetch data on mount, re-fetch when parameters change, provide {data, isFetching} values in the result, and re-render the component as those values change:"
+    },
+    {
+      "id": "4",
+      "title": "Further Information",
+      "body": "See the RTK Query Quick Start tutorial for examples of how to add RTK Query to a project that uses Redux Toolkit, set up an \"API slice\" with endpoint definitions, and how to use the auto-generated React hooks in your components."
+    }
+  ]
+}
